@@ -18,28 +18,40 @@ func createIntDoublyLinkedList() *doublyLinkedList[int] {
 	return &doublyLinkedList[int]{size: 0}
 }
 
-func (d doublyLinkedList[T]) frontPush(data T) {
+func (d *doublyLinkedList[T]) frontPush(data T) {
 	newHead := &node[T]{ data: data }
-	if d.size == 0 {
+	d.size++
+	if d.size == 1 {
 		d.head = newHead
 		d.tail = newHead
-		d.size++
 		return
 	}
 	oldHead := d.head
 	newHead.next = oldHead
 	oldHead.prev = newHead
 	d.head = newHead
-	d.size++
 	return
+}
+
+func (d *doublyLinkedList[T]) Size() int {
+	return d.size
 }
 
 func main() {
     list := createIntDoublyLinkedList()
-	fmt.Printf("%+v\n", list)
+	fmt.Printf("%+v\n", *list)
     list.frontPush(1)
+	fmt.Printf("%+v\n", *list)
+	fmt.Printf("%+v\n", *list.head)
+	fmt.Printf("%+v\n", *list.tail)
     list.frontPush(2)
-    list.frontPush(3)
+	fmt.Printf("%+v\n", *list)
+	fmt.Printf("%+v\n", *list.head)
+	fmt.Printf("%+v\n", *list.tail)
+	list.frontPush(3)
     list.frontPush(4)
-	fmt.Printf("%+v\n", list)
+	fmt.Printf("Size of list: %d\n", list.Size())
+	fmt.Printf("%+v\n", *list)
+	fmt.Printf("%+v\n", *list.head)
+	fmt.Printf("%+v\n", *list.tail)
 }
