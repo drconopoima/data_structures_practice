@@ -73,7 +73,7 @@ func (self *doublyLinkedList[T]) traverse(yield func(curr *node[T]) *node[T], en
 }
 
 func (self *doublyLinkedList[T]) yieldNth(yield func(curr *node[T]) *node[T], entryPoint *node[T], jumps int) *node[T] {
-	if jumps > self.length-1 {
+	if jumps > self.length {
 		return nil
 	}
 	currNode := entryPoint
