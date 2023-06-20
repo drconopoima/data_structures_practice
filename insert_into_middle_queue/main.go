@@ -115,7 +115,12 @@ func (self *doublyLinkedList[T]) insertAtNth(data T, position int) (error) {
 		self.backPush(data)
 		return nil
 	}
-	oldMidNode, _ := self.yieldNth(self.yieldNext,self.head,position)
+	var oldMidNode *node[T]
+	if position < int(math.Ceil(float64(self.length)/2.0)) {
+		oldMidNode, _ = self.yieldNth(self.yieldNext,self.head,position)
+	} else {
+		oldMidNode, _ = self.yieldNth(self.yieldPrev,self.tail,(self.length+1-position))
+	}
 	nodeNthPlus1 := oldMidNode.next
 	newNthNode.prev = oldMidNode
 	newNthNode.next = nodeNthPlus1
